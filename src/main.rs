@@ -5,4 +5,6 @@ fn main() {
   println!("{:?}", tokens);
   let expr = calc::Calculator::expression(tokens.unwrap());
   println!("{:?}", expr);
+  let value = calc::Calculator::evaluate(expr);
+  println!("{}", value.unwrap());
 }

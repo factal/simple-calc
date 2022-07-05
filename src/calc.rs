@@ -59,6 +59,7 @@ impl Calculator {
         '/' => tokens.push(Token::Op(Operator::Div)),
         ' ' => {},
         '\n' => {},
+        '\r' => {},
         _ => return Err(Error::BadToken(c))
       }
     }

@@ -3,7 +3,8 @@ pub enum Operator {
   Add,
   Sub,
   Mul,
-  Div
+  Div,
+  Exp
 }
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
@@ -53,10 +54,13 @@ impl Calculator {
             return Err(Error::MismatchedParens);
           }
         },
+
         '+' => tokens.push(Token::Op(Operator::Add)),
         '-' => tokens.push(Token::Op(Operator::Sub)),
         '*' => tokens.push(Token::Op(Operator::Mul)),
         '/' => tokens.push(Token::Op(Operator::Div)),
+        '^' => tokens.push(Token::Op(Operator::Exp)),
+
         ' ' => {},
         '\n' => {},
         '\r' => {},
@@ -130,6 +134,11 @@ impl Calculator {
           let right = stack.pop().unwrap();
           let left = stack.pop().unwrap();
           stack.push(left / right);
+        },
+        Token::Op(Operator::Exp) => {
+          let right = stack.pop().unwrap();
+          let left = stack.pop().unwrap();
+          stack.push(left.powf(right));
         },
         _ => {}
       }
